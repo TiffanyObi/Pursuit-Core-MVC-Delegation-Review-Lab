@@ -1,20 +1,25 @@
 //
-//  ViewController.swift
+//  ChangeFontViewController.swift
 //  MVC+Delegation-Review-Lab
 //
-//  Created by Benjamin Stone on 8/19/19.
+//  Created by Tiffany Obi on 11/20/19.
 //  Copyright © 2019 Benjamin Stone. All rights reserved.
 //
 
 import UIKit
 
-class ViewController: UIViewController {
+class ChangeFontViewController: UIViewController {
 
+    var eachMovie: Movie?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+
         // Do any additional setup after loading the view.
     }
-
-
+    
+    @IBAction func saveChanges(segue: UIStoryboard){
+        
+    }
+    
 }
-
