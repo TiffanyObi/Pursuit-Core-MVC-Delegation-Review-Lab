@@ -18,7 +18,7 @@ class MovieListViewController: UIViewController {
         }
     }
     
-    var movieFontSize : CGFloat = 0 {
+    var movieFontSize : CGFloat = 17 {
         didSet {
             tableView.reloadData()
         }
@@ -35,21 +35,24 @@ class MovieListViewController: UIViewController {
         movies = Movie.allMovies
     }
     
-    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         
-@IBAction func settingsButton(button: UIButton){
-        
-    func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        
-        guard segue.destination is ChangeFontViewController
-            
-            else {
-                fatalError("Could not access View Controller")
-        }
+        guard let changeVC = segue.destination as? ChangeFontViewController
+                   else {
+                       fatalError("Could not access View Controller")
+               }
+               
+               // pass the current font size value to the
+               // change font view controller
+               changeVC.sliderValue = Float(movieFontSize)
+               
+               print("slider value: \(changeVC.sliderValue)")
         
     }
     
- }
+    
+        
+
     @IBAction func saveChanges(segue: UIStoryboardSegue){
     
         guard let saveChanged = segue.source as? ChangeFontViewController else {

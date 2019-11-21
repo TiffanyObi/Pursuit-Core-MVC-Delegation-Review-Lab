@@ -35,12 +35,12 @@ class ChangeFontViewController: UIViewController {
        fontSizeStepper.stepValue = 1.0
         
         //default start value
-        fontSizeStepper.value = 15.0
+        fontSizeStepper.value = Double(sliderValue)
     }
     func configureSlider() {
         fontSizeSlider.minimumValue = 10
         fontSizeSlider.maximumValue = 30
-        fontSizeSlider.value = 15
+        fontSizeSlider.value = sliderValue
     }
     
     @IBAction func stepperChanged(sender: UIStepper){
