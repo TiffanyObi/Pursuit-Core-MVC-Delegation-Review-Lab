@@ -12,12 +12,17 @@ class MovieListViewController: UIViewController {
     
     @IBOutlet weak var tableView: UITableView!
     
-    var movie = [Movie](){
+    var movies = [Movie](){
         didSet {
             tableView.reloadData()
         }
     }
     
+    var movieFontSize : CGFloat = 0 {
+        didSet {
+            tableView.reloadData()
+        }
+    }
     
     
     override func viewDidLoad() {
@@ -27,49 +32,55 @@ class MovieListViewController: UIViewController {
     }
 
     func loadData(){
-        movie = Movie.allMovies
+        movies = Movie.allMovies
     }
     
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+    
         
-        guard let changeFont = segue.destination as? ChangeFontViewController,
+@IBAction func settingsButton(button: UIButton){
+        
+    func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        
+        guard segue.destination is ChangeFontViewController
             
-            let indexPath = tableView.indexPathForSelectedRow
             else {
                 fatalError("Could not access View Controller")
         }
         
-        let movieInList = movie[indexPath.row]
-        
-        changeFont.eachMovie = movieInList
-        
-        
-        
-        
     }
-   
     
+ }
+    @IBAction func saveChanges(segue: UIStoryboardSegue){
     
-    
-    
+        guard let saveChanged = segue.source as? ChangeFontViewController else {
+        fatalError("Could not locate viewController")
 }
+        
+       movieFontSize = CGFloat(saveChanged.stepperValue)
+    
+    }
+}
+
+
 
 extension MovieListViewController: UITableViewDataSource{
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-      return movie.count
+      return movies.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let movieCell = tableView.dequeueReusableCell(withIdentifier: "movieCell", for: indexPath)
         
-        let movieInRow = movie[indexPath.row]
+        let movieInRow = movies[indexPath.row]
         
         movieCell.textLabel?.text = movieInRow.name
         
         movieCell.detailTextLabel?.text = movieInRow.year.description
         
+        movieCell.textLabel?.font = UIFont(name: "Didot", size: movieFontSize )
         return movieCell
     }
     
     
 }
+
