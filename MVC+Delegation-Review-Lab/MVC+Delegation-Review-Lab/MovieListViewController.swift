@@ -44,25 +44,26 @@ class MovieListViewController: UIViewController {
                
                // pass the current font size value to the
                // change font view controller
-               changeVC.sliderValue = Float(movieFontSize)
-               
-               print("slider value: \(changeVC.sliderValue)")
+               changeVC.fontSize = Float(movieFontSize)
+         changeVC.fontSizeDelegate = self
+                       print("slider value: \(changeVC.fontSize)")
         
     }
     
-    
-        
 
-    @IBAction func saveChanges(segue: UIStoryboardSegue){
-    
-        guard let saveChanged = segue.source as? ChangeFontViewController else {
-        fatalError("Could not locate viewController")
 }
-        
-       movieFontSize = CGFloat(saveChanged.stepperValue)
-    
-    }
-}
+
+//    @IBAction func saveChanges(segue: UIStoryboardSegue){
+//
+//        guard let saveChanged = segue.source as? ChangeFontViewController else {
+//        fatalError("Could not locate viewController")
+//}
+//       
+//
+//       movieFontSize = CGFloat(saveChanged.fontSize)
+//
+//    }
+//}
 
 
 
@@ -87,3 +88,11 @@ extension MovieListViewController: UITableViewDataSource{
     
 }
 
+extension MovieListViewController: FontChangeDelegate {
+    func fontSizeValueDidChange(_ fontSizeController: ChangeFontViewController, fontSize: Float) {
+        self.movieFontSize = CGFloat(fontSize)
+    }
+    
+    
+    
+}

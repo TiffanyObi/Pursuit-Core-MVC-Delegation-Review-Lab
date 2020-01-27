@@ -7,9 +7,9 @@
 //
 
 import UIKit
-
+// note that AnyObject is a class. the paremeters can be "anything" thing tho. int,string etc
 protocol FontChangeDelegate: AnyObject {
-    func fontSizeDidChange(_ movieText: String)
+    func fontSizeValueDidChange(_ fontSizeController: ChangeFontViewController, fontSize: Float)
 }
 
 class ChangeFontViewController: UIViewController {
@@ -19,15 +19,17 @@ class ChangeFontViewController: UIViewController {
     
     var eachMovie: Movie?
     
-    var stepperValue: Double = 0.0
-    var sliderValue: Float = 0
+    var fontSize: Float = 0.0 {
+        didSet {
+            fontSizeDelegate?.fontSizeValueDidChange(self, fontSize: fontSize)
+        }
+    }
     
     weak var fontSizeDelegate: FontChangeDelegate?
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        stepperValue = Double(sliderValue)
-        fontSizeDelegate = self
+//        fontSize = fontSize
         configureSlider()
         configureStepper()
       
@@ -39,34 +41,37 @@ class ChangeFontViewController: UIViewController {
        fontSizeStepper.stepValue = 1.0
         
         //default start value
-        fontSizeStepper.value = Double(sliderValue)
+        fontSizeStepper.value = Double(fontSize)
+        
     }
     func configureSlider() {
         fontSizeSlider.minimumValue = 10
         fontSizeSlider.maximumValue = 30
-        fontSizeSlider.value = sliderValue
+        fontSizeSlider.value = fontSize
     }
+    
+    
     
     @IBAction func stepperChanged(sender: UIStepper){
        
-        stepperValue = sender.value
-        sliderValue = Float(stepperValue)
-        fontSizeSlider.value = Float(stepperValue)
+        fontSize = Float(sender.value)
+        
+        fontSizeSlider.value = Float(fontSize)
         previewLabel.text = "Preview Font Size: \(String(format: "%0.f",sender.value))"
     }
     
     @IBAction func sliderChanged(sender: UISlider){
         
-        sliderValue = sender.value
-        stepperValue = Double(sliderValue)
-        fontSizeStepper.value = Double(sliderValue)
+        fontSize = sender.value
+
+        fontSizeStepper.value = Double(fontSize)
         previewLabel.text = "Preview Font Size: \(String(format: "%0.f",sender.value))"
     }
     
   
     
-        }
-        
+}
+
     
     
 
