@@ -8,6 +8,10 @@
 
 import UIKit
 
+protocol FontChangeDelegate: AnyObject {
+    func fontSizeDidChange(_ movieText: String)
+}
+
 class ChangeFontViewController: UIViewController {
     @IBOutlet weak var fontSizeSlider: UISlider!
     @IBOutlet weak var fontSizeStepper: UIStepper!
@@ -18,12 +22,12 @@ class ChangeFontViewController: UIViewController {
     var stepperValue: Double = 0.0
     var sliderValue: Float = 0
     
-    
+    weak var fontSizeDelegate: FontChangeDelegate?
     
     override func viewDidLoad() {
         super.viewDidLoad()
         stepperValue = Double(sliderValue)
-        
+        fontSizeDelegate = self
         configureSlider()
         configureStepper()
       
@@ -58,6 +62,8 @@ class ChangeFontViewController: UIViewController {
         fontSizeStepper.value = Double(sliderValue)
         previewLabel.text = "Preview Font Size: \(String(format: "%0.f",sender.value))"
     }
+    
+  
     
         }
         
