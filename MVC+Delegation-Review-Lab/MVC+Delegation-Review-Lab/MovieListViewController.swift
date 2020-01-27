@@ -14,7 +14,7 @@ class MovieListViewController: UIViewController {
     
     var movies = [Movie](){
         didSet {
-            tableView.reloadData()
+           tableView.reloadData()
         }
     }
     
@@ -44,8 +44,8 @@ class MovieListViewController: UIViewController {
                
                // pass the current font size value to the
                // change font view controller
-               changeVC.fontSize = Float(movieFontSize)
-         changeVC.fontSizeDelegate = self
+        changeVC.fontSize = Float(movieFontSize)
+            changeVC.fontSizeDelegate = self
                        print("slider value: \(changeVC.fontSize)")
         
     }
