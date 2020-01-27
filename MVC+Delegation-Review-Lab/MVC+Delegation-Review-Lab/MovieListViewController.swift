@@ -81,7 +81,10 @@ extension MovieListViewController: UITableViewDataSource{
         
         movieCell.detailTextLabel?.text = movieInRow.year.description
         
-        movieCell.textLabel?.font = UIFont(name: "Didot", size: movieFontSize )
+        movieCell.textLabel?.font = UIFont(name: "Snell RoundHand", size: movieFontSize )
+        
+         movieCell.detailTextLabel?.font = UIFont(name: "Snell RoundHand", size: movieFontSize )
+        
         return movieCell
     }
     
